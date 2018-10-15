@@ -1,21 +1,17 @@
-$("button").click(function(){
+$("#add").click(function(){
 	//alert('we r here');
 	
 	var n1 = $('#number1').val();
-//	if(!Number.isInteger(n1)){
-//		alert('Please enter interger value for n1');
-//		return;
-//	}
+	if(isNaN(n1) || n1.indexOf('.')>0){
+		alert('Please enter interger value for Number 1');
+		return;
+	}
 	
 	var n2 = $('#number2').val();
-//	if(!Number.isInteger(n2)){	
-//		alert('Please enter interger value for n2');
-//		return;
-//	}
-	
-	var result;
-	//alert(n1);
-	//alert(n2);
+	if(isNaN(n2) || n2.indexOf('.')>0){	
+		alert('Please enter interger value for Number 2');
+		return;
+	}
 	
     $.post("http://localhost:8085/springboot/add",
     {
@@ -23,12 +19,15 @@ $("button").click(function(){
         number2: n2
     },
     function(data, status){
-    		result = data;
-    		$('#result').text(result);
+    		
+    		$('#number1').val(n1);
+    	    $('#number2').val(n2);
+    		$('#result').text(data);
         //alert("Data: " + data + "\nStatus: " + status);
     });
-    $('#number1').val(n1);
-    $('#number1').val(n2);
+    
 	
 	$('.result').text(result);
+	
+	document.getElementById("total").style.display="block";
 });
